@@ -1,0 +1,4 @@
+numpy
+PyCrypto
+pytest
+mmh3
