@@ -59,3 +59,10 @@ class VillagerSave:
         self.postbox.save(villager_path)
         self.photo_studio.save(villager_path)
         self.profile.save(villager_path)
+
+    def save_decrypted(self, path):
+        villager_path = self.get_villager_path(path, self.villager_id)
+        self.personal.save_decrypted(villager_path)
+        self.postbox.save_decrypted(villager_path)
+        self.photo_studio.save_decrypted(villager_path)
+        self.profile.save_decrypted(villager_path)

@@ -45,8 +45,12 @@ class ACSave:
             ]
         )
 
-
     def save(self, path: str):
         self.main.save(path)
         for villager in self.villagers:
             villager.save(path)
+
+    def save_decrypted(self, path: str):
+        self.main.save_decrypted(path)
+        for villager in self.villagers:
+            villager.save_decrypted(path)

@@ -18,4 +18,4 @@ for folder in folders:
     new_save = ACSave.build(save_input)
     saves.append(new_save)
 
-    new_save.save(save_output)
+    new_save.save_decrypted(save_output)

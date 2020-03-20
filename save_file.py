@@ -61,3 +61,8 @@ class SaveFile:
         (header_data, enc_data) = CryptoWrapper.encrypt(decrypted_with_checksums)
         self.write_file_bytes(path, self.header_file_name, header_data)
         self.write_file_bytes(path, self.file_name, enc_data)
+
+    def save_decrypted(self, path):
+        decrypted_with_checksums = ChecksumWrapper.update_hashes(self.file_info, self.decrypted_raw)
+
+        self.write_file_bytes(path, self.file_name, decrypted_with_checksums)
