@@ -22,15 +22,15 @@ def do_test(version):
 
     assert ac_save.main.decrypted_raw == get_bytes(get_file_path(version, "decrypted", "main.dat"))
     assert ac_save.villagers[0].personal.decrypted_raw == get_bytes(
-        get_file_path(version, "decrypted/villager0", "personal.dat")
+        get_file_path(version, "decrypted/Villager0", "personal.dat")
     )
     assert ac_save.villagers[0].photo_studio.decrypted_raw == get_bytes(
-        get_file_path(version, "decrypted/villager0", "photo_studio_island.dat"))
+        get_file_path(version, "decrypted/Villager0", "photo_studio_island.dat"))
     assert ac_save.villagers[0].postbox.decrypted_raw == get_bytes(
-        get_file_path(version, "decrypted/villager0", "postbox.dat")
+        get_file_path(version, "decrypted/Villager0", "postbox.dat")
     )
     assert ac_save.villagers[0].profile.decrypted_raw == get_bytes(
-        get_file_path(version, "decrypted/villager0", "profile.dat")
+        get_file_path(version, "decrypted/Villager0", "profile.dat")
     )
 
     with tempfile.TemporaryDirectory() as tmp:

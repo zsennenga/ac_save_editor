@@ -21,12 +21,12 @@ class ACSave:
     def build(cls, path):
         villager_paths = [
             obj for obj in os.listdir(path)
-            if os.path.isdir(os.path.join(path, obj)) and obj.startswith("villager")
+            if os.path.isdir(os.path.join(path, obj)) and obj.startswith("Villager")
         ]
 
         villager_ids = []
         for villager in villager_paths:
-            parsed = villager.replace("villager", "")
+            parsed = villager.replace("Villager", "")
             if 0 > int(parsed) > 8:
                 raise Exception("Bad villager path")
 
