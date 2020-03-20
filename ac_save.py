@@ -45,6 +45,7 @@ class ACSave:
             ]
         )
 
+
     def save(self, path: str):
         self.main.save(path)
         for villager in self.villagers:
