@@ -2,3 +2,4 @@ numpy
 PyCrypto
 pytest
 mmh3
+construct
