@@ -36,15 +36,28 @@ class SaveFile:
         )
 
     @classmethod
-    def read_file_bytes(cls, root_path, filename):
-        with open(os.path.join(root_path, filename), "rb") as f:
+    def read_file_bytes(cls, root_path: str, filename: FileName) -> bytes:
+        with open(os.path.join(root_path, filename.value), "rb") as f:
             return f.read()
 
     @classmethod
-    def read(cls, path: str, file_name: FileName, header_file_name: FileName):
+    def write_file_bytes(cls, root_path: str, filename: FileName, data: bytes) -> None:
+        if not os.path.exists(root_path):
+            os.mkdir(root_path)
+        with open(os.path.join(root_path, filename.value), "wb") as f:
+            f.write(data)
+
+    @classmethod
+    def read(cls, path: str, file_name: FileName, header_file_name: FileName) -> 'SaveFile':
         return SaveFile(
             file_name=file_name,
-            raw_data=cls.read_file_bytes(path, file_name.value),
+            raw_data=cls.read_file_bytes(path, file_name),
             header_file_name=header_file_name,
-            raw_header=cls.read_file_bytes(path, header_file_name.value)
+            raw_header=cls.read_file_bytes(path, header_file_name),
         )
+
+    def save(self, path) -> None:
+        decrypted_with_checksums = ChecksumWrapper.update_hashes(self.file_info, self.decrypted_raw)
+        (header_data, enc_data) = CryptoWrapper.encrypt(decrypted_with_checksums)
+        self.write_file_bytes(path, self.header_file_name, header_data)
+        self.write_file_bytes(path, self.file_name, enc_data)

@@ -9,7 +9,7 @@ class ChecksumWrapper:
     @classmethod
     def get_hash_bytes(cls, data_to_hash):
         new_hash = np.uint32(mmh3.hash(data_to_hash)).tobytes()
-        return np.frombuffer(new_hash, np.int8)
+        return np.frombuffer(new_hash, np.uint8)
 
     @classmethod
     def update_hashes(cls, file_info: FileInfo, data: bytes):

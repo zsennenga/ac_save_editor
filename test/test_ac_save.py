@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 from ac_save import ACSave
 
@@ -20,11 +21,28 @@ def do_test(version):
     ac_save = ACSave.build(get_path(version, "encrypted"))
 
     assert ac_save.main.decrypted_raw == get_bytes(get_file_path(version, "decrypted", "main.dat"))
-    assert ac_save.personal.decrypted_raw == get_bytes(get_file_path(version, "decrypted", "personal.dat"))
-    assert ac_save.photo_studio.decrypted_raw == get_bytes(
-        get_file_path(version, "decrypted", "photo_studio_island.dat"))
-    assert ac_save.postbox.decrypted_raw == get_bytes(get_file_path(version, "decrypted", "postbox.dat"))
-    assert ac_save.profile.decrypted_raw == get_bytes(get_file_path(version, "decrypted", "profile.dat"))
+    assert ac_save.villagers[0].personal.decrypted_raw == get_bytes(
+        get_file_path(version, "decrypted/villager0", "personal.dat")
+    )
+    assert ac_save.villagers[0].photo_studio.decrypted_raw == get_bytes(
+        get_file_path(version, "decrypted/villager0", "photo_studio_island.dat"))
+    assert ac_save.villagers[0].postbox.decrypted_raw == get_bytes(
+        get_file_path(version, "decrypted/villager0", "postbox.dat")
+    )
+    assert ac_save.villagers[0].profile.decrypted_raw == get_bytes(
+        get_file_path(version, "decrypted/villager0", "profile.dat")
+    )
+
+    with tempfile.TemporaryDirectory() as tmp:
+        ac_save.save(tmp)
+
+        ac_save2 = ACSave.build(tmp)
+
+        assert ac_save.main.decrypted_raw == ac_save2.main.decrypted_raw
+        assert ac_save.villagers[0].personal.decrypted_raw == ac_save2.villagers[0].personal.decrypted_raw
+        assert ac_save.villagers[0].photo_studio.decrypted_raw == ac_save2.villagers[0].photo_studio.decrypted_raw
+        assert ac_save.villagers[0].postbox.decrypted_raw == ac_save2.villagers[0].postbox.decrypted_raw
+        assert ac_save.villagers[0].profile.decrypted_raw == ac_save2.villagers[0].profile.decrypted_raw
 
 
 def test_v1_0_0():
