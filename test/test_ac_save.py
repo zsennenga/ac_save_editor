@@ -31,5 +31,5 @@ def test_v1_0_0():
     do_test("v1_0_0")
 
 
-#def test_v1_1_0():
-#    do_test("v1_1_0")
+def test_v1_1_0():
+    do_test("v1_1_0")
